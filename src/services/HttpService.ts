@@ -1,11 +1,39 @@
-// @ts-nocheck
+class ApiClient {
+  private clazz: IEndpoint;
 
-export async function Get<T>(Filtro?: string) {}
+  constructor(clazz: IEndpoint) {
+    this.clazz = clazz;
+  }
 
-export async function Get<T>(Id?: int) {}
+  async Get(Filtro?: string) {
+    const instance = new this.clazz();
+    const endpoint = instance.endpoint;
+    // Restante da implementação da função Get
+  }
 
-export async function Put<T>(Value: T) {}
+  async GetById(Id?: number) {
+    const instance = new this.clazz();
+    const endpoint = instance.endpoint;
+    // Restante da implementação da função GetById
+  }
 
-export async function Post<T>(Value: T) {}
+  async Put(Value: HasEndpoint) {
+    const instance = new this.clazz();
+    const endpoint = instance.endpoint;
+    // Restante da implementação da função Put
+  }
 
-export async function Delete<T>(Value: T) {}
+  async Post(Value: HasEndpoint) {
+    const instance = new this.clazz();
+    const endpoint = instance.endpoint;
+    // Restante da implementação da função Post
+  }
+
+  async Delete(Value: HasEndpoint) {
+    const instance = new this.clazz();
+    const endpoint = instance.endpoint;
+    // Restante da implementação da função Delete
+  }
+}
+
+export default ApiClient;
