@@ -1,5 +1,15 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import { onMounted } from "vue";
+import Teste from "./Model/Teste";
+import HelloWorld from './components/HelloWorld.vue';
+import ApiClient from './services/HttpService';
+
+onMounted(() => {
+  const apiClient = new ApiClient(Teste);
+
+  apiClient.Get();
+})
+
 </script>
 
 <template>

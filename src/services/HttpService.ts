@@ -1,38 +1,30 @@
-class ApiClient {
-  private clazz: IEndpoint;
-
-  constructor(clazz: IEndpoint) {
-    this.clazz = clazz;
-  }
+class ApiClient<T extends IEndpoint> {
+  private endpoint: string;
 
   async Get(Filtro?: string) {
-    const instance = new this.clazz();
-    const endpoint = instance.endpoint;
+    console.log(this.endpoint);
     // Restante da implementação da função Get
   }
 
   async GetById(Id?: number) {
-    const instance = new this.clazz();
-    const endpoint = instance.endpoint;
-    // Restante da implementação da função GetById
+    // Implementação da função GetById
   }
 
-  async Put(Value: HasEndpoint) {
-    const instance = new this.clazz();
-    const endpoint = instance.endpoint;
-    // Restante da implementação da função Put
+  async Put(Value: IEndpoint) {
+    // Implementação da função Put
   }
 
-  async Post(Value: HasEndpoint) {
-    const instance = new this.clazz();
-    const endpoint = instance.endpoint;
-    // Restante da implementação da função Post
+  async Post(Value: IEndpoint) {
+    // Implementação da função Post
   }
 
-  async Delete(Value: HasEndpoint) {
-    const instance = new this.clazz();
-    const endpoint = instance.endpoint;
-    // Restante da implementação da função Delete
+  async Delete(Value: IEndpoint) {
+    // Implementação da função Delete
+  }
+
+  constructor(clazzFactory: new () => T) {
+    const instance = new clazzFactory();
+    this.endpoint = instance.endpoint;
   }
 }
 
