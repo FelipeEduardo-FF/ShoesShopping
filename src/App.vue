@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import Teste from "./Model/Teste";
+import './assets/main.css'
 import ApiClient from './services/HttpService';
 
 onMounted(() => {
@@ -12,8 +13,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
+  <div class="mb-20 text-slate-500">
     teste
-  </div>
+  </div> 
 </template>
 
