@@ -1,9 +1,13 @@
+import axiosapi from "./axiosapi";
+
 class ApiClient<T extends IEndpoint> {
   private endpoint: string;
 
-  async Get(Filtro?: string) {
-    console.log(this.endpoint);
-    // Restante da implementação da função Get
+  async Get(Filtro?: string): Promise<T[]> {
+    var filtro = Filtro ? Filtro : "";
+    console.log(this.endpoint + filtro);
+    const { data } = await axiosapi.get<T[]>(this.endpoint + filtro);
+    return data;
   }
 
   async GetById(Id?: number) {

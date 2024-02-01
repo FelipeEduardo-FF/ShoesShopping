@@ -1,9 +1,9 @@
 <script setup>
+import Sneakers from '../Model/Sneakers';
+
 
 defineProps({
-    imageUrl:String,
-    title:String,
-    price:Number,
+    item:Sneakers,
     isFavorite:Boolean,
     isAdded:Boolean,
     onAddClick:Function,
@@ -18,14 +18,14 @@ defineProps({
 
      <div class="relative flex flex-col w-full border border-slate-100 rounded-xl p-8 cursor-pointer transition hover:shadow-xl hover:transform hover:-translate-y-2">
         <img @click="onAddFavorite()" :src="isFavorite ?'/like-2.svg':'/like-1.svg'" alt="Like 1" class="absolute top-8 left-8">
-        <img :src="imageUrl" alt="Sneaker"/>
+        <img :src="item.imageUrl?item.imageUrl:''" alt="Sneaker"/>
 
-        <p class="mt-2">{{ title }}</p>
+        <p class="mt-2">{{ item.title }}</p>
 
         <div class="flex justify-between mt-5">
             <div class="flex flex-col">
             <span class="text-slate-400">Preço </span>
-            <b>R${{ price }} </b>
+            <b>R$ {{ item.price }} </b>
             </div>
 
             <img  @click="onAddClick()" :src="!isAdded?'/plus.svg':'/checked.svg' " alt="Plus" >
