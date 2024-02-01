@@ -1,10 +1,15 @@
 <script setup lang="ts">
   import Sneakers from './Model/Sneakers';
+  import Favorites from './Model/Favorites';
+
   import './assets/main.css'
   import BaseHeader from './components/BaseHeader.vue';
   import CardList from './components/CardList.vue';
   import ApiClient from './services/HttpService';
+  import sneakersRepo from './repository/sneakersrepository';
   import {onMounted, ref, watch, reactive } from 'vue';
+
+  const favoriresRepo = new ApiClient(Favorites);
 
   const items = ref<Sneakers[]>([]);
   
@@ -13,33 +18,81 @@
     searchQuery:''
   });
 
-
-  const onChangedSelect = (event:any)=>{
-    filters.sortBy = event.target.value;
-  }
-
-  const onChangedInput = (event: any) => {
-    filters.searchQuery = event.target.value;
-  }
-
-  const fetchItems = async () => {
+  const fetchFavorites = async ()=>{
     try {
-
-      const sneakerrepo = new ApiClient(Sneakers);
-      const parameter ={
-        sortBy:filters.sortBy,
-        searchQuery:filters.searchQuery
-      }
-      items.value = await sneakerrepo.Get(`?title=*${parameter.searchQuery}*&sortBy=${parameter.sortBy}`);
       
+      const favorites= await favoriresRepo.Get();
+
+      items.value= items.value.map(item=>{
+      const favorite = favorites.find(favorite=>favorite.itemId== item.id);
+
+        if(!favorite){
+          return item;
+        }else{
+          item.favoriteId = favorite.itemId;
+          item.isFavorited = true;
+          return item;
+        }
+      });
+
+
     } catch (error) {
       console.log(error);
     }
   }
 
+  const addFavorite= async (item:Sneakers) =>
+  {
+    try {
+
+      item.isFavorited = !item.isFavorited;
+      
+      if (!item.isFavorited) {
+
+        const  newFavorite:Favorites =new Favorites();
+        newFavorite.itemId = item.id;
+        
+        const data =await favoriresRepo.Post(newFavorite)
+        item.favoriteId = data.id       
+        
+      }
+      else{
+       
+        if(item.favoriteId)
+          favoriresRepo.Delete(item.favoriteId);
+
+        item.favoriteId = null;
+
+      }
+    } catch (error) {
+      
+    }
+    
+  }
 
 
-  onMounted(fetchItems);
+
+  const fetchItems = async () => {
+    try {
+      items.value = await sneakersRepo.get(filters.searchQuery,filters.sortBy);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+const onChangedSelect = (event: any) => {
+  filters.sortBy = event.target.value;
+}
+
+const onChangedInput = (event: any) => {
+  filters.searchQuery = event.target.value;
+}
+
+  onMounted(async ()=>{
+    await fetchItems();
+    await fetchFavorites();
+  });
+
   watch(()=>filters.sortBy, fetchItems);
   watch(() => filters.searchQuery, fetchItems);
   
@@ -70,8 +123,7 @@
           </div>
           
 
-
-          <CardList :items="items"/>
+          <CardList  @addFavorite="addFavorite" :items='items'/>
       </div>
    
 

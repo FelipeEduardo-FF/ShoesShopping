@@ -2,14 +2,13 @@
 import Sneakers from '../Model/Sneakers';
 
 
+
 defineProps({
     item:Sneakers,
-    isFavorite:Boolean,
     isAdded:Boolean,
-    onAddClick:Function,
-    onAddFavorite: Function
-
+    onClickAddFavorite:Function
 })
+
 
 
 </script>
@@ -17,7 +16,7 @@ defineProps({
 <template >
 
      <div class="relative flex flex-col w-full border border-slate-100 rounded-xl p-8 cursor-pointer transition hover:shadow-xl hover:transform hover:-translate-y-2">
-        <img @click="onAddFavorite()" :src="isFavorite ?'/like-2.svg':'/like-1.svg'" alt="Like 1" class="absolute top-8 left-8">
+        <img @click="onClickAddFavorite" :src="item.isFavorited ?'/like-2.svg':'/like-1.svg'" alt="Like 1" class="absolute top-8 left-8">
         <img :src="item.imageUrl?item.imageUrl:''" alt="Sneaker"/>
 
         <p class="mt-2">{{ item.title }}</p>

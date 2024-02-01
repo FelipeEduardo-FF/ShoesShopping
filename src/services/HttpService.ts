@@ -5,8 +5,8 @@ class ApiClient<T extends IEndpoint> {
 
   async Get(Filtro?: string): Promise<T[]> {
     var filtro = Filtro ? Filtro : "";
-    console.log(this.endpoint + filtro);
     const { data } = await axiosapi.get<T[]>(this.endpoint + filtro);
+
     return data;
   }
 
@@ -18,12 +18,16 @@ class ApiClient<T extends IEndpoint> {
     // Implementação da função Put
   }
 
-  async Post(Value: IEndpoint) {
-    // Implementação da função Post
+  async Post<T>(Value: T) {
+    const { data } = await axiosapi.post(this.endpoint, Value);
+
+    return data;
   }
 
-  async Delete(Value: IEndpoint) {
-    // Implementação da função Delete
+  async Delete(Id: number) {
+    const { data } = await axiosapi.delete(this.endpoint + "/" + Id);
+
+    return data;
   }
 
   constructor(clazzFactory: new () => T) {
