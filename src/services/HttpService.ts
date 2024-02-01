@@ -10,16 +10,20 @@ class ApiClient<T extends IEndpoint> {
     return data;
   }
 
-  async GetById(Id?: number) {
-    // Implementação da função GetById
+  async GetById<T>(Id?: number) {
+    const { data } = await axiosapi.get<T>(this.endpoint + "/" + Id);
+
+    return data;
   }
 
-  async Put(Value: IEndpoint) {
-    // Implementação da função Put
+  async Put<T>(Value: IEndpoint) {
+    const { data } = await axiosapi.post<T>(this.endpoint, Value);
+
+    return data;
   }
 
   async Post<T>(Value: T) {
-    const { data } = await axiosapi.post(this.endpoint, Value);
+    const { data } = await axiosapi.post<T>(this.endpoint, Value);
 
     return data;
   }
