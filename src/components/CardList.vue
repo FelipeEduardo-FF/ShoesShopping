@@ -9,9 +9,9 @@
         },
     });
 
-    const onAddClick = () => {
-        alert(10);
-    };
+    const emit=defineEmits(['addFavorite']);
+
+
 </script>
 
 
@@ -20,10 +20,10 @@
             <Card 
                 v-for="(item) in items" 
                 :key="item.id"
-                :isFavorite="false" 
-                :isAdded="false" 
-                :item="item"
-                :onAddClick="onAddClick">
+                :item='item'
+                :isAdded='false'
+                :onClickAddFavorite="()=>  emit('addFavorite', item)" 
+                >
             </Card>
 
         </div>
