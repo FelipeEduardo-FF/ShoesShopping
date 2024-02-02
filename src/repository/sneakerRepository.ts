@@ -1,7 +1,7 @@
 import Sneakers from "../Model/Sneakers";
-import ApiClient from "../services/HttpService";
+import ApiClient from "../services/httpService";
 
-class sneakersRepo {
+class sneakersRepository {
   async get(searchQuery: string, sortBy: string): Promise<Sneakers[]> {
     const sneakerrepo = new ApiClient(Sneakers);
     const sneakers = await sneakerrepo.Get(
@@ -16,4 +16,4 @@ class sneakersRepo {
   }
 }
 
-export default new sneakersRepo();
+export default new sneakersRepository();

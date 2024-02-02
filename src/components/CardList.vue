@@ -9,8 +9,8 @@
         },
     });
 
-    const emit=defineEmits(['addFavorite']);
-
+    const emit=defineEmits(['toggleFavorite','addToCart']);
+    
 
 </script>
 
@@ -22,7 +22,8 @@
                 :key="item.id"
                 :item='item'
                 :isAdded='false'
-                :onClickAddFavorite="()=>  emit('addFavorite', item)" 
+                :onClickToggleFavorite="()=>  emit('toggleFavorite', item)" 
+                :onClickAdd="()=>emit('addToCart',item)"
                 >
             </Card>
 
