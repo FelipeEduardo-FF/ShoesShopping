@@ -20,14 +20,7 @@
             <img src="/cart.svg" alt="Cart"/>
             <b> R$ {{ totalPrice }} </b>
           </li>
-          <li class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
-            <img src="/heart.svg" alt="Favoritos"/>
-            <span> Favoritos </span>
-          </li>
-          <li class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
-            <img src="/profile.svg" alt="User"/>
-            <span> User </span>
-          </li>
+
       </ul>
     </header>
 </template>
